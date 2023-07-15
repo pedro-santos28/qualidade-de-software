@@ -1,8 +1,8 @@
-'use client';
+"use client";
 /* eslint-disable @next/next/no-img-element */
-import React from 'react';
-import { signIn } from 'next-auth/react';
-import { useForm } from 'react-hook-form';
+import React from "react";
+import { signIn } from "next-auth/react";
+import { useForm } from "react-hook-form";
 
 type Props = {};
 
@@ -20,10 +20,11 @@ export default function LoginForm() {
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
-    const result = await signIn('credentials', {
+    const result = await signIn("credentials", {
       email: data.email,
       password: data.password,
       redirect: true,
+      callbackUrl: "http://localhost:3000/",
     });
 
     console.log(result);
@@ -62,7 +63,7 @@ export default function LoginForm() {
                 <input
                   type="email"
                   id="email"
-                  {...register('email', { required: true })}
+                  {...register("email", { required: true })}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="seuemail@gmail.com"
                 />
@@ -77,7 +78,7 @@ export default function LoginForm() {
                 <input
                   type="password"
                   id="password"
-                  {...register('password', { required: true })}
+                  {...register("password", { required: true })}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 />
@@ -90,7 +91,7 @@ export default function LoginForm() {
                 Entrar
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Não tem uma conta ainda?{' '}
+                Não tem uma conta ainda?{" "}
                 <a
                   href="#"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"

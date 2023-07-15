@@ -1,5 +1,5 @@
-import { getServerSession } from 'next-auth';
-import { options } from '../api/auth/[...nextauth]/options';
+import { getServerSession } from "next-auth";
+import { options } from "../api/auth/[...nextauth]/options";
 
 type Props = {};
 
@@ -9,7 +9,7 @@ const page = async ({ session }) => {
 
 export default page;
 
-export async function getServerSideProps(context: any) {
+export async function GetServerSideProps(context: any) {
   const session = await getServerSession(context.req, context.res, options);
 
   console.log(session);
@@ -17,7 +17,7 @@ export async function getServerSideProps(context: any) {
   if (!session) {
     return {
       redirect: {
-        destination: '/',
+        destination: "/",
         permanent: false,
       },
     };
