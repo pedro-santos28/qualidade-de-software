@@ -2,6 +2,8 @@
 import type { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axiosClient from '../../../../../config/api';
+import { useUserContext } from '../../../../../contexts/context';
+
 
 export const options: NextAuthOptions = {
   providers: [
@@ -50,6 +52,7 @@ export const options: NextAuthOptions = {
           createdAt: user.createdAt,
         };
       }
+
       return session;
     },
   },

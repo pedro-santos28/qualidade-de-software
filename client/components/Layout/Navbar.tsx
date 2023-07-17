@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { Typography } from 'antd';
-import { signOut, useSession } from 'next-auth/react';
-import { getSession } from 'next-auth/react';
-import { Session } from 'next-auth';
-import axiosClient from '../../config/api';
-import { useUserContext } from '../../contexts/context';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { Typography } from "antd";
+import { signOut, useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import { Session } from "next-auth";
+import axiosClient from "../../config/api";
+import { useUserContext } from "../../contexts/context";
 const { Title, Paragraph, Text } = Typography;
 
 export default function Navbar() {
@@ -30,7 +30,7 @@ export default function Navbar() {
     const payload = {
       email: session?.user?.email,
     };
-    const res = await axiosClient.post('/auth/logout', payload);
+    const res = await axiosClient.post("/auth/logout", payload);
     console.log(res);
     if (res.status === 200) signOut();
   };
@@ -40,10 +40,9 @@ export default function Navbar() {
       ...session,
       user: {
         ...session?.user,
-        username: 'editado',
+        username: "editado",
       },
     });
-    console.log(sessionData);
   };
 
   return (
