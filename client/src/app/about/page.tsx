@@ -1,9 +1,9 @@
-import { getServerSession } from "next-auth";
-import { options } from "../api/auth/[...nextauth]/options";
+import { getServerSession } from 'next-auth';
+import { options } from '../api/auth/[...nextauth]/options';
 
 type Props = {};
 
-const page = async ({ session }) => {
+const page = async ({ session }: any) => {
   return <div>page</div>;
 };
 
@@ -17,7 +17,7 @@ export async function GetServerSideProps(context: any) {
   if (!session) {
     return {
       redirect: {
-        destination: "/",
+        destination: '/',
         permanent: false,
       },
     };

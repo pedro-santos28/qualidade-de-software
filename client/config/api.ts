@@ -1,12 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios';
 
-interface CustomHeaders {
-  'Content-Type': string;
-  Accept: string;
-}
-
 const config: AxiosRequestConfig = {
-  baseURL: 'http://localhost:3001',
+  baseURL: 'http://localhost:3001/api',
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',

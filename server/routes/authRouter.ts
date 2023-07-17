@@ -12,8 +12,6 @@ dotenv.config();
 authRouter.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(email, password);
-
   try {
     const user = await prisma.user.findUnique({
       where: { email: email },
@@ -29,6 +27,13 @@ authRouter.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
+    const updateUser = await prisma.user.update({
+      where: { email: email },
+      data: {
+        status: 'Online',
+      },
+    });
+
     jwt.sign(
       { userId: user.id },
       String(secret),
@@ -39,7 +44,7 @@ authRouter.post('/login', async (req, res) => {
         }
         const { password, ...userResponseDTO } = user || {};
 
-        res.status(200).json({ auth: true, token, userResponseDTO });
+        res.status(200).json({ token, userResponseDTO });
       },
     );
   } catch (error) {
@@ -47,8 +52,43 @@ authRouter.post('/login', async (req, res) => {
   }
 });
 
+authRouter.post('/logout', async (req, res) => {
+  const { email } = req.body;
+
+  console.log("email", email);
+
+  try {
+    const user = await prisma.user.findUnique({
+      where: { email: email },
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const updateUser = await prisma.user.update({
+      where: { email: email },
+      data: {
+        status: 'Offline',
+      },
+    });
+
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+});
+
 authRouter.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
+
+  const isEmailAvailable = await prisma.user.findUnique({
+    where: { email: email },
+  });
+
+  if (isEmailAvailable) {
+    return res.status(400).json({ message: 'Email already in use' });
+  }
 
   const cryptPassword = await bcrypt.hash(password, 10);
 

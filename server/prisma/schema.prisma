@@ -11,8 +11,19 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  username String
-  password String
+  id        String    @unique @default(uuid())
+  email     String    @unique
+  username  String
+  password  String
+  createdAt DateTime  @default(now())
+  status    String?   @default("offline")
+  Comment   Comment[]
+}
+
+model Comment {
+  id        String   @unique @default(uuid())
+  content   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
 }
