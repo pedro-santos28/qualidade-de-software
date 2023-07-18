@@ -9,7 +9,7 @@ namespace models {
   export interface IComment {
     id: string;
     content: string;
-    createdAt: Date;
+    createdAt: Date | string;
     userId: string;
     user: IUser;
   }

@@ -1,5 +1,5 @@
-"use client";
-import { Session } from "next-auth";
+'use client';
+import { Session } from 'next-auth';
 import {
   useContext,
   createContext,
@@ -7,9 +7,9 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
-} from "react";
-import axiosClient from "../config/api";
-import { getSession } from "next-auth/react";
+} from 'react';
+import axiosClient from '../config/api';
+import { getSession } from 'next-auth/react';
 
 interface IUserContext {
   user: models.IUser | undefined;
@@ -41,7 +41,7 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
 
   async function getOnlineUsers() {
-    const res = await axiosClient.get("/users/getOnlineUsers");
+    const res = await axiosClient.get('/users/getOnlineUsers');
     const onlineUsers = res.data;
     setOnlineUsers(onlineUsers);
   }

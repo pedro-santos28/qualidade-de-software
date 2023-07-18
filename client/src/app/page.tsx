@@ -16,7 +16,7 @@ export default async function Home() {
 
   return (
     <main>
-      <Chat comments={comments}></Chat>
+      <Chat></Chat>
     </main>
   );
 }

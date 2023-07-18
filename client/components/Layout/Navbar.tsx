@@ -1,21 +1,20 @@
-"use client";
+'use client';
 
 /* eslint-disable @next/next/no-img-element */
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { Typography } from "antd";
-import { signOut, useSession } from "next-auth/react";
-import { getSession } from "next-auth/react";
-import { Session } from "next-auth";
-import axiosClient from "../../config/api";
-import { useUserContext } from "../../contexts/context";
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Typography } from 'antd';
+import { signOut, useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
+import { Session } from 'next-auth';
+import axiosClient from '../../config/api';
+import { useUserContext } from '../../contexts/context';
 const { Title, Paragraph, Text } = Typography;
 
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { data: sessionData, status, update } = useSession();
-  const { getOnlineUsers, onlineUsers, getCurrentSession, session } =
-    useUserContext();
+  const { getOnlineUsers, onlineUsers, session } = useUserContext();
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -23,14 +22,13 @@ export default function Navbar() {
 
   useEffect(() => {
     getOnlineUsers();
-    getCurrentSession();
   }, []);
 
   const handleLogOut = async () => {
     const payload = {
       email: session?.user?.email,
     };
-    const res = await axiosClient.post("/auth/logout", payload);
+    const res = await axiosClient.post('/auth/logout', payload);
     console.log(res);
     if (res.status === 200) signOut();
   };
@@ -40,13 +38,13 @@ export default function Navbar() {
       ...session,
       user: {
         ...session?.user,
-        username: "editado",
+        username: 'editado',
       },
     });
   };
 
   return (
-    <nav className="flex items-center justify-between py-4 px-8 bg-gray-800 text-white">
+    <nav className="flex items-center justify-between  bg-gray-800 text-white p-4">
       <div className="text-2xl font-bold">
         <Link href="/">Chat Social</Link>
       </div>

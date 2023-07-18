@@ -1,7 +1,8 @@
 'use client';
 import { useForm } from 'react-hook-form';
 import axiosClient from '../../config/api';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 export default function Register() {
   const {
@@ -10,18 +11,25 @@ export default function Register() {
     formState: { errors },
   } = useForm();
 
+  const router = useRouter();
+
   const onSubmit = async (data: any) => {
-    console.log(data);
-    const res = await axiosClient.post('/auth/register', data);
-    if (res.status == 201) {
-      // return redirect('/');
-    } else {
-      alert('Erro ao criar conta');
+    try {
+      const res = await axiosClient.post('/auth/register', data);
+      if (res.status == 201) {
+        toast.success('Conta criada com sucesso!');
+        setTimeout(() => {
+          router.push('/auth/signin');
+        }, 2000);
+      }
+    } catch (error) {
+      toast.error('Erro ao criar conta, tente novamente.');
+      console.log(error);
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-[calc(100vh-64px)] border-2 border-red-500">
       <form className="w-full max-w-md" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="text-2xl mb-4">Registro</h2>
 
